@@ -41,7 +41,7 @@ def Step1():
         f1name[-3] = "2"
         f2 = "_".join(f1name)
         p = '-I %s -s %s -b %s -l %s -m %s'%(options.folder, f1, f2, Params['BARCODES'], Params['BCMISMATCH'])
-        cmd = ["MyDemultiplex.py"]
+        cmd = ["./MyDemultiplex.py"]
         cmd.extend(p.split(" "))
         #print >> sys.stdout, " ".join(cmd)
         process = subprocess.Popen(" ".join(cmd), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
