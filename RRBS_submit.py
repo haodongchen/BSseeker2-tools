@@ -27,7 +27,6 @@ MY_LOCK = threading.Lock()
 # When output into log files, use this lock
 from time import sleep
 global Params
-Params={}
 
 def Check_jobs(joblist):
     """This code will check if certain jobs are still in queue or running in
@@ -186,7 +185,7 @@ def main():
     else:
         print >> sys.stderr, 'ERROR: Cannot find configuration file conf.txt'
         exit(1)
-    Conf_read(conf)
+    Params = Conf_read(conf)
     
     workerlist = []
     if Params['MULTIPLEX'] != "False":
