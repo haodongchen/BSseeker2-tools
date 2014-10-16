@@ -15,13 +15,13 @@ def job_log(fname):
     job_log.logfile = open(fname,'w',1)
 
 def logj(job_id):
-    MY_LOCK.acquire()
+    #MY_LOCK.acquire()
     cmd = "qacct -j %s"%(str(job_id))
     process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = process.communicate()
     log_message = "%s\n" % (out)
     job_log.logfile.write(log_message)
-    MY_LOCK.release()
+    #MY_LOCK.release()
 
 def job_log_close():
     job_log.logfile.close()
