@@ -22,7 +22,6 @@ import os, sys, subprocess
 from optparse import OptionParser
 from utils import *
 global Params
-Params={}
 
 def Step1():
     # Demultiplex
@@ -31,7 +30,7 @@ def Step1():
                   help="Input file folder", default=os.getcwd() )
     parser.add_option("--conf", type="string", dest="CONFPATH")
     (options, args) = parser.parse_args()
-    Conf_read(options.CONFPATH)
+    Params = Conf_read(options.CONFPATH)
     if Params['MULTIPLEX'] != "False":
         Params['BARCODES'] = ','.join([str(int(x)) for x in Params['BARCODES'].split(",")])
         file_list_1 = [x for x in os.listdir(options.folder) if \
