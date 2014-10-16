@@ -21,8 +21,6 @@
 import os, sys, subprocess
 from optparse import OptionParser
 from utils import *
-global Params
-Params={}
 
 def Step2():
     """Align using bs-seeker2"""
@@ -31,7 +29,7 @@ def Step2():
                   help="Input file folder", default=os.getcwd() )
     parser.add_option("--conf", type="string", dest="CONFPATH")
     (options, args) = parser.parse_args()
-    Conf_read(options.CONFPATH)
+    Params = Conf_read(options.CONFPATH)
     file_list = [x for x in os.listdir(options.folder) \
                  if x.endswith("qseq.txt") or x.endswith("qseq.txt.gz")]
     file_list.sort()
