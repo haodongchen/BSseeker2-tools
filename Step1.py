@@ -21,7 +21,6 @@
 import os, sys, subprocess
 from optparse import OptionParser
 from utils import *
-global Params
 
 def Step1():
     # Demultiplex
