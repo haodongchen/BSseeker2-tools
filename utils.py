@@ -27,6 +27,7 @@ def job_log_close():
     job_log.logfile.close()
 
 def Conf_read(conf_path):
+    Params = {}
     try:
         conf = open(conf_path,'r')
     except:
@@ -41,5 +42,5 @@ def Conf_read(conf_path):
             variable=line.split("=")[0]
             value=line.split("=")[1]
             Params[variable]=value
-    return True
+    return Params
 
