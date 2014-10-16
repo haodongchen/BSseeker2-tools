@@ -193,9 +193,9 @@ def main():
                        (x.endswith("_qseq.txt") or x.endswith("_qseq.txt.gz")) \
                        and x.split("_")[-3] == "1"]
         logm("Demultiplexing starts.")
-        #job_id = Submit_to_hoffman2_array(1, 1024, "Step1.py -i %s --conf %s"%(options.folder, conf), lower_index=1, higher_index=len(file_list_1), interval=1, outputdir=options.folder, messaging="error")
-        #Job_wait([job_id], 60)
-        #logj(job_id)
+        job_id = Submit_to_hoffman2_array(1, 1024, "Step1.py -i %s --conf %s"%(options.folder, conf), lower_index=1, higher_index=len(file_list_1), interval=1, outputdir=options.folder, messaging="error")
+        Job_wait([job_id], 60)
+        logj(job_id)
         logm("Demultiplexing ends.")
         for BC in Params['BARCODES'].split(","):
             workerlist.append(Worker("BC"+BC, options.folder, conf))
