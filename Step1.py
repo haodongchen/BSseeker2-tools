@@ -20,7 +20,7 @@
 
 import os, sys, subprocess
 from optparse import OptionParser
-from bs_tools_utils.utils import *
+from utils import *
 global Params
 Params={}
 

@@ -21,7 +21,7 @@
 import subprocess, os, sys, math
 import threading
 from optparse import OptionParser
-from bs_tools_utils.utils import *
+from utils import *
 
 MY_LOCK = threading.Lock()
 # When output into log files, use this lock
