@@ -131,7 +131,9 @@ class Worker(threading.Thread):
         thread = 2 # 2-thread 8G mem should be enough for most analysis. Usually 6GB is enough.
         job_id = Submit_to_hoffman2_array(24, 1024*4, "Step2.py -i %s --conf %s"%(self.folder, self.conf), lower_index=1, higher_index=len(file_list), interval=1, outputdir=self.folder, thread=thread, messaging="error")
         Job_wait([job_id], 60*60) # This part may take up to two hours
+        MY_LOCK.acquire()
         logj(job_id)
+        MY_LOCK.release()
         logm("%s: Alignment ends."%self.name)
 
     def Step3(self):
@@ -143,7 +145,9 @@ class Worker(threading.Thread):
         job_idlist = []
         job_idlist.append(Submit_to_hoffman2(8, 2048, cmd, messaging="error"))
         Job_wait(job_idlist, 300)
+        MY_LOCK.acquire()
         logj(job_idlist[0])
+        MY_LOCK.release()
         logm("%s: Merging bam files ends."%self.name)
 
     def Step4(self):
@@ -162,7 +166,9 @@ class Worker(threading.Thread):
         job_idlist = []
         job_idlist.append(Submit_to_hoffman2(16, 2048, cmd, messaging="error"))
         Job_wait(job_idlist, 60*60) # This part may take up to five hours
+        MY_LOCK.acquire()
         logj(job_idlist[0])
+        MY_LOCK.release()
         logm("%s: Methylation calling ends."%self.name)
 
 def main():
@@ -195,7 +201,9 @@ def main():
         logm("Demultiplexing starts.")
         job_id = Submit_to_hoffman2_array(1, 1024, "Step1.py -i %s --conf %s"%(options.folder, conf), lower_index=1, higher_index=len(file_list_1), interval=1, outputdir=options.folder, messaging="error")
         Job_wait([job_id], 60)
+        MY_LOCK.acquire()
         logj(job_id)
+        MY_LOCK.release()
         logm("Demultiplexing ends.")
         for BC in Params['BARCODES'].split(","):
             workerlist.append(Worker("BC"+BC, options.folder, conf))
