@@ -36,7 +36,7 @@ def Step2():
     f = file_list[int(os.environ["SGE_TASK_ID"]) - 1]
     cmd = os.path.join(Params['BSPATH'],"bs_seeker2-align.py")
     p = [cmd]
-    p.extend( ("-i %s --bt-p 1"%os.path.join(options.folder, f)).split(" "))
+    p.extend( ("-i %s"%os.path.join(options.folder, f)).split(" "))
     p.extend( ("-L %s -U %s -m %s"%(Params['LOW_BOUND'], Params['UP_BOUND'], Params['NO_MISMATCHES'])).split(" ") )
     p.extend( ("-g %s -d %s -p %s"%(Params['GENOME'], Params['DBPATH'], Params['ALIGNER_PATH'])).split(" "))
     p.extend( ["-r", "-a", os.path.join(Params['BSPATH'], "adapter.txt"), "--aligner", "bowtie2", "--bt2--end-to-end"])
