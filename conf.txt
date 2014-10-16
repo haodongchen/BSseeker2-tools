@@ -1,0 +1,55 @@
+## Configuration file for BS alignment
+## In-line Comment is not supported. Please use a new line for each comment starting with a # sign.
+
+###########################
+## Environment variables ##
+###########################
+
+## This part contains information for programs
+BSPATH=/u/home/h/hdchen/software/BSseeker2_v2.0.6/
+# To check the full path to the BSseeker2, go to BSseeker2 folder and type 'pwd'
+
+###########################
+##    Demultiplexing     ##
+#################################
+## Change this part as needed. ##
+#################################
+
+## This part contains information for demultiplexing.
+MULTIPLEX=True
+#If samples are demultiplexed, put True. Otherwise put False.
+
+BARCODES=6,13
+#Use "," to separate barcodes. Ex: 6,10. If not multiplexed, leave this blank
+
+BCMISMATCH=4
+# Number of mismatches allowed in one barcode read
+
+###########################
+##  Alignment variables  ##
+###########################
+
+## This part contains information for bs_seeker2-align.py
+GENOME=mm9.fa
+# Use the same genome name as the pre-built genome. (Ex. mm9.fa, hg18.fa, hg19.fa)
+
+LOW_BOUND=75
+UP_BOUND=280
+# Low bound and up bound should be the same as the pre-built genome
+
+NO_MISMATCHES=10
+# Number of mismatches allowed in one read
+
+ALIGNER_PATH=/u/home/h/hdchen/software/bowtie2-2.2.3
+#Path to the aligner program. To check the full path to the aligner, i.e. bowtie2, go to bowtie2's folder and type 'pwd'
+
+DBPATH=/u/home/h/hdchen/software/BSseeker2_v2.0.6/bs_utils/reference_genomes
+#Path to the reference genome library (generated in preprocessing genome)
+
+###########################
+##   Methylation Call    ##
+###########################
+
+## This part contains information for bs_seeker2-call_methylation.py
+READ_NO=10
+#The least number of reads covering one site to be shown in wig file
