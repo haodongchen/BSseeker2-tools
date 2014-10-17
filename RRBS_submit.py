@@ -26,7 +26,6 @@ from utils import *
 MY_LOCK = threading.Lock()
 # When output into log files, use this lock
 from time import sleep
-global Params
 
 def Check_jobs(joblist):
     """This code will check if certain jobs are still in queue or running in
@@ -175,6 +174,7 @@ class Worker(threading.Thread):
 
 def main():
     # Initialization
+    global Params
     parser = OptionParser()
     parser.add_option("-i", "--input", type="string", dest="folder", \
                   help="Input file folder" )
