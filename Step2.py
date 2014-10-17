@@ -36,7 +36,7 @@ def Step2():
     FILE_BLOCK = int(math.ceil(float(len(file_list)) / float(os.environ["SGE_TASK_LAST"])))
     FILE_START = FILE_BLOCK * (int(os.environ["SGE_TASK_ID"])-1)
     FILE_END = min(len(file_list), FILE_START + FILE_BLOCK)
-    for f in file_list[FILE_START, FILE_END]:
+    for f in file_list[FILE_START:FILE_END]:
         cmd = os.path.join(Params['BSPATH'],"bs_seeker2-align.py")
         p = [cmd]
         p.extend( ("-i %s"%os.path.join(options.folder, f)).split(" "))
