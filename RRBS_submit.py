@@ -129,8 +129,10 @@ class Worker(threading.Thread):
         logm("%s: Alignment starts."%self.name)
         file_list = [x for x in os.listdir(self.folder) if x.endswith("qseq.txt") or x.endswith("qseq.txt.gz")]
         thread = 4# 4-thread 8G mem should be enough for most analysis. Usually 6GB is enough.
-        job_id = Submit_to_hoffman2_array(3, 2000, "Step2.py -i %s --conf %s"%(self.folder, self.conf), lower_index=1, higher_index=len(file_list), interval=1, outputdir=self.folder, thread=thread, messaging="error")
-        Job_wait([job_id], 60*60) # This part may take up to two hours
+        JOB_NUM = 8
+        TIME = 2 * int(math.ceil(float(len(file_list))/JOB_NUM))
+        job_id = Submit_to_hoffman2_array(TIME + 2, 2000, "Step2.py -i %s --conf %s"%(self.folder, self.conf), lower_index=1, higher_index=JOB_NUM, interval=1, outputdir=self.folder, thread=thread, messaging="error")
+        Job_wait([job_id], 60*60) # This part may take up to 24 ~ 48 hours
         MY_LOCK.acquire()
         logj(job_id)
         MY_LOCK.release()
