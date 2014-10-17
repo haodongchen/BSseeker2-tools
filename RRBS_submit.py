@@ -144,7 +144,7 @@ class Worker(threading.Thread):
         p = " -i %s"%self.folder
         cmd += p
         job_idlist = []
-        job_idlist.append(Submit_to_hoffman2(8, 2048, cmd, messaging="error"))
+        job_idlist.append(Submit_to_hoffman2(8, 2048, cmd, outputdir=self.folder, messaging="error"))
         Job_wait(job_idlist, 300)
         MY_LOCK.acquire()
         logj(job_idlist[0])
@@ -165,7 +165,7 @@ class Worker(threading.Thread):
         cmd = os.path.join(Params['BSPATH'],"bs_seeker2-call_methylation.py")
         cmd += p
         job_idlist = []
-        job_idlist.append(Submit_to_hoffman2(16, 2048, cmd, messaging="error"))
+        job_idlist.append(Submit_to_hoffman2(16, 2048, cmd, outputdir=self.folder, messaging="error"))
         Job_wait(job_idlist, 60*60) # This part may take up to five hours
         MY_LOCK.acquire()
         logj(job_idlist[0])
