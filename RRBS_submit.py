@@ -85,10 +85,12 @@ def Submit_to_hoffman2(time, memory, command, outputdir=os.getcwd(), messaging="
         exit(1)
     return int(jobid)
 
-def Submit_to_hoffman2_array(time, memory, command, lower_index=1, higher_index=1, interval=1, outputdir=os.getcwd(), thread=1, messaging="complete"):
+def Submit_to_hoffman2_array(time, memory, command, lower_index=1, higher_index=1, interval=1, outputdir=os.getcwd(), thread=1, messaging="complete", highp=False, express=False):
     """This function submit job to hoffman2 and get the job-ID"""
     cmd = "jobarray.q -t %s -d %s -k -o %s -m %s -mt %s "%(str(time), str(memory), outputdir, messaging, str(thread))
     cmd += "-jl %s -jh %s -ji %s "%(str(lower_index),str(higher_index),str(interval))
+    if highp: cmd += "-u "
+    elif express: cmd += "-e "
     cmd += command
     MY_LOCK.acquire()
     process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -128,9 +130,9 @@ class Worker(threading.Thread):
         logm("%s: Alignment starts."%self.name)
         file_list = [x for x in os.listdir(self.folder) if x.endswith("qseq.txt") or x.endswith("qseq.txt.gz")]
         thread = 4# 4-thread 8G mem should be enough for most analysis. Usually 6GB is enough.
-        JOB_NUM = 8
+        JOB_NUM = len(file_list)
         TIME = 2 * int(math.ceil(float(len(file_list))/JOB_NUM))
-        job_id = Submit_to_hoffman2_array(TIME + 2, 2000, "Step2.py -i %s --conf %s"%(self.folder, self.conf), lower_index=1, higher_index=JOB_NUM, interval=1, outputdir=self.folder, thread=thread, messaging="error")
+        job_id = Submit_to_hoffman2_array(TIME + 2, 2000, "Step2.py -i %s --conf %s"%(self.folder, self.conf), lower_index=1, higher_index=JOB_NUM, interval=1, outputdir=self.folder, thread=thread, highp = True, messaging="error")
         Job_wait([job_id], 60*60) # This part may take up to 24 ~ 48 hours
         MY_LOCK.acquire()
         logj(job_id)
@@ -201,7 +203,7 @@ def main():
                        (x.endswith("_qseq.txt") or x.endswith("_qseq.txt.gz")) \
                        and x.split("_")[-3] == "1"]
         logm("Demultiplexing starts.")
-        job_id = Submit_to_hoffman2_array(1, 1024, "Step1.py -i %s --conf %s"%(options.folder, conf), lower_index=1, higher_index=len(file_list_1), interval=1, outputdir=options.folder, messaging="error")
+        job_id = Submit_to_hoffman2_array(1, 1024, "Step1.py -i %s --conf %s"%(options.folder, conf), lower_index=1, higher_index=len(file_list_1), interval=1, outputdir=options.folder, messaging="error", express=True)
         Job_wait([job_id], 60)
         MY_LOCK.acquire()
         logj(job_id)
