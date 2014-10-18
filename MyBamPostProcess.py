@@ -20,7 +20,7 @@
 import os, sys
 import pysam
 from optparse import OptionParser
-from bs_tools_utils.utils import *
+from utils import *
 
 def main():
     parser = OptionParser()
