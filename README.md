@@ -16,4 +16,5 @@ To submit jobs,
 * Change conf.txt accordingly
 * Type
 
+
     job.q -t 96 -d 2048 -o $(pwd) -k RRBS_submit -i $(pwd)
