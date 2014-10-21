@@ -17,4 +17,4 @@ To submit jobs,
 * Type
 
 
-    job.q -t 96 -d 2048 -o $(pwd) -k RRBS_submit -i $(pwd)
+    job.q -t 96 -d 2048 -o $(pwd) -k ~/bin/RRBS_submit -i $(pwd)
