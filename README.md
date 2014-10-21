@@ -7,7 +7,6 @@ Before running this program, make sure:
 
 * You have BSSeeker2 installed correctly
 * Genome pre-processed
-* Establish a link named RRBS_submit in your ~/bin/ folder to RRBS_submit.py (You can do so by typing "ln -s /path/to/BSSeeker2-tools/RRBS_submit.py RRBS_submit", and then move RRBS_submit into ~/bin/)
 
 To submit jobs,
 
@@ -17,4 +16,4 @@ To submit jobs,
 * Type
 
 
-    job.q -t 96 -d 2048 -o $(pwd) -k ~/bin/RRBS_submit -i $(pwd)
+    job.q -t 96 -d 2048 -o $(pwd) -k /folder/to/your/BSseeker-tools/RRBS_submit -i $(pwd)
