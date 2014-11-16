@@ -163,7 +163,7 @@ class Worker(threading.Thread):
         if len(bamlist) != 1:
             logm("%s: Methylation calling failed. Please check the number of merged bam files."%self.name)
             return True
-        p = " -d %s -i %s -r %s --txt True"%(genome_subdir, os.path.join(self.folder, bamlist[0]), Params['READ_NO'])
+        p = " -d %s -i %s -r %s -x True"%(genome_subdir, os.path.join(self.folder, bamlist[0]), Params['READ_NO'])
         cmd = os.path.join(Params['BSPATH'],"bs_seeker2-call_methylation.py")
         cmd += p
         job_idlist = []
