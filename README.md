@@ -16,4 +16,4 @@ To submit jobs,
 * Type
 
 
-    job.q -t 96 -d 2048 -o $(pwd) -k /folder/to/your/BSseeker2-tools/RRBS_submit -i $(pwd)
+    job.q -t 96 -d 2048 -o $(pwd) -k /folder/to/your/BSseeker2-tools/RRBS_submit.py -i $(pwd)
